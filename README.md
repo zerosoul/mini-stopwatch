@@ -1,3 +1,3 @@
-# react-starter
+# Mini Stopwatch
 
-react webapp development scaffold for mobile and pc, with or without redux/router.
+[Mini Stopwatch](//works.yangerxiao.com/mini-stopwatch/)

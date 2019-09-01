@@ -1,26 +1,80 @@
-export function shuffle(array) {
-  let counter = array.length;
-  console.log('shuffle', array);
-
-  // While there are elements in the array
-  while (counter > 0) {
-    // Pick a random index
-    let index = Math.floor(Math.random() * counter);
-
-    // Decrease counter by 1
-    counter--;
-
-    // And swap the last element with it
-    let temp = array[counter];
-    array[counter] = array[index];
-    array[index] = temp;
+class Stopwatch {
+  constructor(results) {
+    this.running = false;
+    this.results = results;
+    this.laps = [];
+    this.reset();
+    this.print(this.times);
   }
 
-  return array;
+  reset() {
+    this.times = [0, 0, 0];
+  }
+
+  start() {
+    if (!this.time) this.time = performance.now();
+    if (!this.running) {
+      this.running = true;
+      requestAnimationFrame(this.step.bind(this));
+    }
+  }
+
+  lap() {
+    let times = this.times;
+    let li = document.createElement('li');
+    li.innerText = this.format(times);
+    this.results.appendChild(li);
+  }
+
+  stop() {
+    this.running = false;
+    this.time = null;
+  }
+
+  restart() {
+    if (!this.time) this.time = performance.now();
+    if (!this.running) {
+      this.running = true;
+      requestAnimationFrame(this.step.bind(this));
+    }
+    this.reset();
+  }
+
+  step(timestamp) {
+    if (!this.running) return;
+    this.calculate(timestamp);
+    this.time = timestamp;
+    this.print();
+    requestAnimationFrame(this.step.bind(this));
+  }
+
+  calculate(timestamp) {
+    var diff = timestamp - this.time;
+    // Hundredths of a second are 100 ms
+    this.times[2] += diff / 10;
+    // Seconds are 100 hundredths of a second
+    if (this.times[2] >= 100) {
+      this.times[1] += 1;
+      this.times[2] -= 100;
+    }
+    // Minutes are 60 seconds
+    if (this.times[1] >= 60) {
+      this.times[0] += 1;
+      this.times[1] -= 60;
+    }
+  }
+
+  format(times) {
+    return `\
+          ${pad0(times[0], 2)}:\
+          ${pad0(times[1], 2)}:\
+          ${pad0(Math.floor(times[2]), 2)}`;
+  }
 }
 
-export function getTimeFormated(count, zh = false) {
-  return zh
-    ? `${String(Math.floor(count / 60))}分${String(count % 60)}秒`
-    : `${String(Math.floor(count / 60)).padStart(2, '0')}:${String(count % 60).padStart(2, '0')}`;
+function pad0(value, count) {
+  var result = value.toString();
+  for (; result.length < count; --count) result = '0' + result;
+  return result;
 }
+export { Stopwatch };

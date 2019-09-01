@@ -1,33 +1,32 @@
 {
-  "name": "react-starter",
+  "name": "mini-stopwatch",
   "version": "1.1.0",
-  "description": "React webapp starter",
+  "description": "React Mini Stopwatch",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development node scripts/start.js",
-    "build": "NODE_ENV=production node scripts/build.js",
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
     "deploy": "npm run build && gh-pages -d build",
     "changelog": "auto-changelog -p --release-summary -l false --template changelog.template.hbs && git add CHANGELOG.md"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zerosoul/react-starter.git"
+    "url": "git+https://github.com/zerosoul/mini-stopwatch.git"
   },
   "keywords": [
-    "css3",
-    "template",
+    "stopwatch",
+    "mini",
     "react",
     "frontend",
-    "tool",
-    "amazing"
+    "tool"
   ],
   "author": "tristan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zerosoul/react-starter/issues"
+    "url": "https://github.com/zerosoul/mini-stopwatch/issues"
   },
-  "homepage": "https://zerosoul.github.io/react-starter",
+  "homepage": "https://works.yangerxiao.com/mini-stopwatch",
   "dependencies": {
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
