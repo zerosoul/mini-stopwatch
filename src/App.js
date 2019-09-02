@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Modal from './components/Modal';
 import Themes from './components/Themes';
 import Menu from './components/Menu';
-import { useModal, useThemes, useTime } from './hooks';
+import { invertColor } from './utils';
+import { useModal, useThemes, useStopwatch } from './hooks';
 
 const StyledBody = styled.section`
   height: 100vh;
@@ -13,17 +14,20 @@ const StyledBody = styled.section`
   justify-content: center;
   align-items: center;
   transition: background ease-in-out 0.5s;
-  /* mix-blend-mode: difference; */
-
+  background: ${({ theme }) => theme};
   .time {
     font-size: 4rem;
     font-weight: bold;
-    color: #333;
+    text-shadow: 0px 1px 6px #3e3d3d;
+    letter-spacing: 0.4rem;
+    color: ${({ theme }) => invertColor(theme)};
   }
   .btn {
-    padding: 0.6rem 1rem;
+    padding: 1rem 1.4rem;
     background: #000;
-    border-radius: 0.4rem;
+    color: #fff;
+    border-radius: 0.2rem;
+    font-size: 2rem;
     border: none;
     margin-top: 1rem;
     cursor: pointer;
@@ -33,7 +37,8 @@ const StyledBody = styled.section`
   }
 `;
 const App = () => {
-  const { start, time, stop, running, reset } = useTime();
+  const { start, pause, ms, seconds, minutes, reset } = useStopwatch();
+  const [counting, setCounting] = useState(false);
   const { visible: modalVisible, closeModal, openModal } = useModal();
   const { visible: themesVisible, closeThemes, openThemes, theme, setTheme } = useThemes();
   const handleReset = evt => {
@@ -41,28 +46,33 @@ const App = () => {
     evt.stopPropagation();
   };
   const handleBodyClick = () => {
-    if (themesVisible) {
+    if (themesVisible || modalVisible) {
       closeThemes();
+      closeModal();
       return;
     }
-    if (running) {
-      stop();
+    if (counting) {
+      pause();
     } else {
       start();
     }
+    setCounting(prev => !prev);
   };
+  console.log('theme', theme);
+
   return (
     <>
       <Modal visible={modalVisible} closeModal={closeModal} />
       <Themes visible={themesVisible} {...{ closeThemes, setTheme }} />
       <Menu {...{ openModal, openThemes }} />
-      <StyledBody onClick={handleBodyClick} style={{ background: theme }}>
+      <StyledBody onClick={handleBodyClick} theme={theme}>
         <div className="time">
-          {time[0]}:{time[1]}.{time[2]}
+          {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}:
+          {ms < 10 ? `0${ms}` : ms}
         </div>
 
-        <button className={`btn ${running && 'hidden'}`} onClick={handleReset}>
-          reset
+        <button className={`btn ${counting && 'hidden'}`} onClick={handleReset}>
+          RESET
         </button>
       </StyledBody>
     </>

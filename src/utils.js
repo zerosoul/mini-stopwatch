@@ -1,78 +1,36 @@
-class Stopwatch {
-  constructor(results) {
-    this.running = false;
-    this.results = results;
-    this.laps = [];
-    this.reset();
-  }
-
-  reset() {
-    this.times = [0, 0, 0];
-  }
-
-  start() {
-    if (!this.time) this.time = performance.now();
-    if (!this.running) {
-      this.running = true;
-      requestAnimationFrame(this.step.bind(this));
-    }
-  }
-
-  lap() {
-    let times = this.times;
-    let li = document.createElement('li');
-    li.innerText = this.format(times);
-    this.results.appendChild(li);
-  }
-
-  stop() {
-    this.running = false;
-    this.time = null;
-  }
-
-  restart() {
-    if (!this.time) this.time = performance.now();
-    if (!this.running) {
-      this.running = true;
-      requestAnimationFrame(this.step.bind(this));
-    }
-    this.reset();
-  }
-
-  step(timestamp) {
-    if (!this.running) return;
-    this.calculate(timestamp);
-    this.time = timestamp;
-    requestAnimationFrame(this.step.bind(this));
-  }
-
-  calculate(timestamp) {
-    var diff = timestamp - this.time;
-    // Hundredths of a second are 100 ms
-    this.times[2] += diff / 10;
-    // Seconds are 100 hundredths of a second
-    if (this.times[2] >= 100) {
-      this.times[1] += 1;
-      this.times[2] -= 100;
-    }
-    // Minutes are 60 seconds
-    if (this.times[1] >= 60) {
-      this.times[0] += 1;
-      this.times[1] -= 60;
-    }
-  }
-
-  format(times) {
-    return `\
-          ${pad0(times[0], 2)}:\
-          ${pad0(times[1], 2)}:\
-          ${pad0(Math.floor(times[2]), 2)}`;
-  }
+function padZero(str, len = 2) {
+  const zeros = new Array(len).join('0');
+  return (zeros + str).slice(-len);
 }
-
-function pad0(value, count) {
-  var result = value.toString();
-  for (; result.length < count; --count) result = '0' + result;
-  return result;
+export function invertColor(hex, bw = false) {
+  if (hex.indexOf('#') === 0) {
+    hex = hex.slice(1);
+  }
+  // convert 3-digit hex to 6-digits.
+  if (hex.length === 3) {
+    hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+  }
+  if (hex.length !== 6) {
+    throw new Error('Invalid HEX color.');
+  }
+  let r = parseInt(hex.slice(0, 2), 16);
+  let g = parseInt(hex.slice(2, 4), 16);
+  let b = parseInt(hex.slice(4, 6), 16);
+  if (bw) {
+    // http://stackoverflow.com/a/3943023/112731
+    return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? '#000000' : '#FFFFFF';
+  }
+  // invert color components
+  r = (255 - r).toString(16);
+  g = (255 - g).toString(16);
+  b = (255 - b).toString(16);
+  // pad each with zeros and return
+  return `#${padZero(r)}${padZero(g)}${padZero(b)}`;
 }
-export { Stopwatch };
+export function rgb2hex(rgb) {
+  rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+  function hex(x) {
+    return ('0' + parseInt(x).toString(16)).slice(-2);
+  }
+  return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}

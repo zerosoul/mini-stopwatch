@@ -27,7 +27,15 @@ const Wrapper = styled.section`
   }
 `;
 export default function Menu({ openModal, openThemes }) {
-  const { expand, expandMenu } = useMenu();
+  const { expand, expandMenu, foldMenu } = useMenu();
+  const handleThemeClick = () => {
+    foldMenu();
+    openThemes();
+  };
+  const handleAboutClick = () => {
+    foldMenu();
+    openModal();
+  };
   return (
     <Wrapper>
       {!expand && (
@@ -37,10 +45,10 @@ export default function Menu({ openModal, openThemes }) {
       )}
       {expand && (
         <ul className="list">
-          <li className="item" onClick={openThemes}>
+          <li className="item" onClick={handleThemeClick}>
             Themes
           </li>
-          <li className="item" onClick={openModal}>
+          <li className="item" onClick={handleAboutClick}>
             About
           </li>
         </ul>
