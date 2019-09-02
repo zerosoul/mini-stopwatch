@@ -4,7 +4,6 @@ class Stopwatch {
     this.results = results;
     this.laps = [];
     this.reset();
-    this.print(this.times);
   }
 
   reset() {
@@ -44,7 +43,6 @@ class Stopwatch {
     if (!this.running) return;
     this.calculate(timestamp);
     this.time = timestamp;
-    this.print();
     requestAnimationFrame(this.step.bind(this));
   }
 
