@@ -4,7 +4,7 @@ import Modal from './components/Modal';
 import Themes from './components/Themes';
 import Menu from './components/Menu';
 import { invertColor } from './utils';
-import { useModal, useThemes, useStopwatch } from './hooks';
+import { useModal, useThemes, useStopwatch, useMenu } from './hooks';
 
 const StyledBody = styled.section`
   height: 100vh;
@@ -38,6 +38,8 @@ const StyledBody = styled.section`
 `;
 const App = () => {
   const { start, pause, ms, seconds, minutes, reset } = useStopwatch();
+  const { expand, foldMenu, expandMenu } = useMenu();
+
   const [counting, setCounting] = useState(false);
   const { visible: modalVisible, closeModal, openModal } = useModal();
   const { visible: themesVisible, closeThemes, openThemes, theme, setTheme } = useThemes();
@@ -46,9 +48,10 @@ const App = () => {
     evt.stopPropagation();
   };
   const handleBodyClick = () => {
-    if (themesVisible || modalVisible) {
+    if (themesVisible || modalVisible || expand) {
       closeThemes();
       closeModal();
+      foldMenu();
       return;
     }
     if (counting) {
@@ -63,11 +66,11 @@ const App = () => {
   return (
     <>
       <Modal visible={modalVisible} closeModal={closeModal} />
-      <Themes visible={themesVisible} {...{ closeThemes, setTheme }} />
-      <Menu {...{ openModal, openThemes }} />
+      <Themes visible={themesVisible} theme={theme} {...{ closeThemes, setTheme }} />
+      <Menu {...{ expand, openModal, openThemes, expandMenu, foldMenu }} />
       <StyledBody onClick={handleBodyClick} theme={theme}>
         <div className="time">
-          {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}:
+          {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}.
           {ms < 10 ? `0${ms}` : ms}
         </div>
 

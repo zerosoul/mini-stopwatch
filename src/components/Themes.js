@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { rgb2hex, invertColor } from '../utils';
 const Wrapper = styled.section`
@@ -26,7 +26,8 @@ const Wrapper = styled.section`
     color: #fff;
     z-index: 996;
     text-transform: capitalize;
-    &:hover {
+    &:hover,
+    &.curr {
       z-index: 997;
       transition: all 0.5s;
       transform: scale(1.1);
@@ -86,8 +87,19 @@ const colors = [
   'pink',
   'light'
 ];
-// eslint-disable-next-line no-unused-vars
-export default function Themes({ visible = false, setTheme, closeThemes }) {
+export default function Themes({ visible = false, setTheme, theme }) {
+  const themeWrapper = useRef(null);
+  useEffect(() => {
+    if (themeWrapper) {
+      themeWrapper.current.querySelectorAll('.theme').forEach(item => {
+        let c = rgb2hex(getComputedStyle(item).backgroundColor);
+        item.classList.remove('curr');
+        if (theme == c) {
+          item.classList.add('curr');
+        }
+      });
+    }
+  }, [theme]);
   const handleSetTheme = ({ target: ele }) => {
     let color = rgb2hex(getComputedStyle(ele).backgroundColor);
     setTheme(color);
@@ -95,7 +107,7 @@ export default function Themes({ visible = false, setTheme, closeThemes }) {
     // closeThemes();
   };
   return (
-    <Wrapper className={visible && 'visible'}>
+    <Wrapper ref={themeWrapper} className={visible && 'visible'}>
       {colors.map(color => {
         return (
           <div key={color} onClick={handleSetTheme} className={`theme ${color}`}>

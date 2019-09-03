@@ -1,22 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useMenu } from '../hooks';
+// import { useMenu } from '../hooks';
+// import { rgb2hex, invertColor } from '../utils';
 
 const Wrapper = styled.section`
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 1rem;
+  right: 1rem;
   padding: 0.4rem;
-  background: #333;
   color: #fff;
   z-index: 998;
+  mix-blend-mode: luminosity;
   .dots {
     writing-mode: vertical-lr;
     font-size: 1rem;
     letter-spacing: -0.2rem;
     cursor: pointer;
+    font-weight: 800;
   }
   .list {
+    background: #333;
+    box-shadow: 4px -7px 8px 0px #1f1f1fc7;
     .item {
       padding: 0.8rem;
       cursor: pointer;
@@ -26,8 +30,7 @@ const Wrapper = styled.section`
     }
   }
 `;
-export default function Menu({ openModal, openThemes }) {
-  const { expand, expandMenu, foldMenu } = useMenu();
+export default function Menu({ expand, openModal, openThemes, expandMenu, foldMenu }) {
   const handleThemeClick = () => {
     foldMenu();
     openThemes();

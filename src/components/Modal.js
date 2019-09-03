@@ -25,6 +25,19 @@ const Wrapper = styled.section`
     background: #fff;
     padding: 2rem 3rem;
     box-shadow: -5px 14px 6px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > h2 {
+      font-weight: 800;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #3333333b;
+      padding-bottom: 1rem;
+    }
+    > p {
+      margin-bottom: 0.4rem;
+    }
   }
 `;
 export default function Modal({ visible = false, closeModal }) {
@@ -34,7 +47,13 @@ export default function Modal({ visible = false, closeModal }) {
   return (
     <Wrapper className={visible ? 'visible' : null} onClick={closeModal}>
       <div onClick={handleContentClick} className="modal">
-        modal content
+        <h2>Stopwatch</h2>
+        <p>
+          Created By <a href="//yangerxiao.com">Tristan</a>
+        </p>
+        <p>
+          <a href="//github.com/zerosoul/mini-stopwatch">Source Code</a>
+        </p>
       </div>
     </Wrapper>
   );
