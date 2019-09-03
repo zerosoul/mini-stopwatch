@@ -26,7 +26,7 @@ export const useModal = (initialValue = false) => {
 };
 
 export const useThemes = (initialValue = false) => {
-  const initalTheme = localStorage.getItem('STOPWATCH_THEME') || '#fff';
+  const initalTheme = localStorage.getItem('STOPWATCH_THEME') || '#000000';
   const [visible, setVisible] = useState(initialValue);
   const [theme, setTheme] = useState(initalTheme);
 

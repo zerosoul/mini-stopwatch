@@ -41,6 +41,7 @@ const App = () => {
   const { expand, foldMenu, expandMenu } = useMenu();
 
   const [counting, setCounting] = useState(false);
+  const [firstblood, setFirstblood] = useState(true);
   const { visible: modalVisible, closeModal, openModal } = useModal();
   const { visible: themesVisible, closeThemes, openThemes, theme, setTheme } = useThemes();
   const handleReset = evt => {
@@ -48,6 +49,9 @@ const App = () => {
     evt.stopPropagation();
   };
   const handleBodyClick = () => {
+    if (firstblood) {
+      setFirstblood(false);
+    }
     if (themesVisible || modalVisible || expand) {
       closeThemes();
       closeModal();
@@ -74,7 +78,7 @@ const App = () => {
           {ms < 10 ? `0${ms}` : ms}
         </div>
 
-        <button className={`btn ${counting && 'hidden'}`} onClick={handleReset}>
+        <button className={`btn ${(counting || firstblood) && 'hidden'}`} onClick={handleReset}>
           RESET
         </button>
       </StyledBody>
