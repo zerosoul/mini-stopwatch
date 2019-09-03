@@ -52,7 +52,7 @@ export default function register() {
 
 function registerValidSW(swUrl) {
   navigator.serviceWorker
-    .register(swUrl, { scope: '/mini-stopwatch' })
+    .register(swUrl, { scope: '/mini-stopwatch/' })
     .then(registration => {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
