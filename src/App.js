@@ -16,8 +16,7 @@ const StyledBody = styled.section`
   transition: background ease-in-out 0.5s;
   background: ${({ theme }) => theme};
   .time {
-    font-family: 'Droid Sans Mono', Consolas, Menlo, Monaco, Lucida Console, Liberation Mono,
-      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+    font-family: 'Droid Sans Mono', monospace, serif;
     font-size: 4rem;
     font-weight: bold;
     text-shadow: 0px 1px 6px #3e3d3d;
