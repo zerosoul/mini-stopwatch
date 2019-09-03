@@ -9,7 +9,7 @@ const Wrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
   transition: transform 0.5s;
-  transform: translateY(100%);
+  transform: translateY(110%);
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
   &.visible {
     transform: translateY(0);
