@@ -13,7 +13,7 @@ const Wrapper = styled.section`
   mix-blend-mode: luminosity;
   .dots {
     writing-mode: vertical-lr;
-    font-size: 1rem;
+    font-size: 2rem;
     letter-spacing: -0.2rem;
     cursor: pointer;
     font-weight: 800;

@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   html{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family:"Fangzheng ZY", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    font-family:'Roboto';
   }
   body{
     -webkit-overflow-scrolling: touch;
@@ -29,12 +29,12 @@ const GlobalStyle = createGlobalStyle`
 
   @media screen and (min-width: 320px){
       html {
-          font-size: 12px;
+          font-size: 14px;
       }
   }
   @media screen and (min-width: 375px){
       html {
-          font-size: 14px;
+          font-size: 16px;
       }
   }
   @media screen and (min-width: 480px){
