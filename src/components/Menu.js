@@ -10,13 +10,16 @@ const Wrapper = styled.section`
   padding: 0.4rem;
   color: #fff;
   z-index: 998;
+
   mix-blend-mode: luminosity;
   .dots {
     writing-mode: vertical-lr;
+    width: 10vw;
     font-size: 2rem;
     letter-spacing: -0.2rem;
     cursor: pointer;
     font-weight: 800;
+    margin: 0 auto;
   }
   .list {
     background: #333;
