@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import Icon from '../assets/img/icon.png';
 const Wrapper = styled.section`
   height: 20vh;
   background: rgba(22, 22, 22, 0.2);
@@ -28,6 +28,10 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
+    .logo {
+      width: 6rem;
+      margin-bottom: 0.4rem;
+    }
     > h2 {
       font-weight: 800;
       font-size: 1.8rem;
@@ -36,7 +40,12 @@ const Wrapper = styled.section`
       padding-bottom: 1rem;
     }
     > p {
+      font-size: 1rem;
+      color: #999;
       margin-bottom: 0.4rem;
+      > a {
+        color: #666;
+      }
     }
   }
 `;
@@ -47,7 +56,8 @@ export default function Modal({ visible = false, closeModal }) {
   return (
     <Wrapper className={visible ? 'visible' : null} onClick={closeModal}>
       <div onClick={handleContentClick} className="modal">
-        <h2>Stopwatch</h2>
+        <img src={Icon} alt="logo" className="logo" />
+        <h2>STOPWATCH</h2>
         <p>
           Created By <a href="//yangerxiao.com">Tristan</a>
         </p>
