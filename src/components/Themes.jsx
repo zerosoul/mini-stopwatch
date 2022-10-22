@@ -85,13 +85,13 @@ const colors = [
   'purple',
   'yellow',
   'pink',
-  'light'
+  'light',
 ];
 export default function Themes({ visible = false, setTheme, theme }) {
   const themeWrapper = useRef(null);
   useEffect(() => {
     if (themeWrapper) {
-      themeWrapper.current.querySelectorAll('.theme').forEach(item => {
+      themeWrapper.current.querySelectorAll('.theme').forEach((item) => {
         let c = rgb2hex(getComputedStyle(item).backgroundColor);
         item.classList.remove('curr');
         if (theme == c) {
@@ -108,7 +108,7 @@ export default function Themes({ visible = false, setTheme, theme }) {
   };
   return (
     <Wrapper ref={themeWrapper} className={visible && 'visible'}>
-      {colors.map(color => {
+      {colors.map((color) => {
         return (
           <div key={color} onClick={handleSetTheme} className={`theme ${color}`}>
             {color}

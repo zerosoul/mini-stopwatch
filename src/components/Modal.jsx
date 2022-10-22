@@ -50,7 +50,7 @@ const Wrapper = styled.section`
   }
 `;
 export default function Modal({ visible = false, closeModal }) {
-  const handleContentClick = evt => {
+  const handleContentClick = (evt) => {
     evt.stopPropagation();
   };
   return (
